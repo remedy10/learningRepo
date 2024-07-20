@@ -1,0 +1,14 @@
+import unittest
+from Maze import Maze
+from main import *
+class Tests(unittest.TestCase):
+    def test_maze_create_cells(self):
+        colls=12
+        rows=10
+        m1=Maze(0,0,rows,colls,10,10,win)
+        self.assertEqual(
+            len(m1.cells),colls
+        )
+        self.assertEqual(
+            len(m1.cells[0]),rows
+        )

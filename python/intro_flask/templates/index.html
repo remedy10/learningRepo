@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Tasks</title>
+{% endblock  %}
+{% block body %}
+
+<div class="accordion container" id="accordionExample">
+  {% for task in tasks %}
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="heading{{task.id}}">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{task.id}}" aria-expanded="true" aria-controls="collapseOne" data-bs-parent='#accordionExample'>
+          {{task.task_name}}
+        </button>
+      </h2>
+      <div id="collapse{{task.id}}" class="accordion-collapse collapse " data-bs-parent='#accordionExample'>
+        <div class="accordion-body row">
+          <div class="col-8">
+            <button type="button" class="btn btn-outline-info w-100" onclick="location.href='/update/{{task.id}}'">Güncelle</button>
+          </div>
+          <div class="col-4">
+            <button type="button" class="btn btn-outline-danger w-100" onclick="location.href='/delete/{{task.id}}'">Sil</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+</div>
+<script>
+  document.querySelectorAll('.accordion-button').forEach(button => {
+    button.addEventListener('click', () => {
+      const accordion = button.closest('.accordion');
+      const items = accordion.querySelectorAll('.accordion-collapse');
+
+      items.forEach(item => {
+        if (item !== button.nextElementSibling) {
+          item.classList.remove('show');
+        }
+      });
+    });
+  });
+</script>
+{% endblock  %}
